@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .bill-container {
+            background-color: #fff;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 600px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #000;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        .total {
+            font-weight: bold;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background-color: #fff;
+            }
+
+            .bill-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .footer {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bill-container">
+        <h2>Simple Bill</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ORDER_ITEMS}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">Subtotal:</td>
+                    <td>{{SUBTOTAL}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-right">Tax (10%):</td>
+                    <td>{{TAX}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-right total">Total:</td>
+                    <td class="total">{{TOTAL}}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="footer">
+            <p>Thank you for your purchase!</p>
+            <p>{{COMPANY_NAME}}</p>
+            <p>{{COMPANY_ADDRESS}}</p>
+        </div>
+    </div>
+</body>
+</html>
