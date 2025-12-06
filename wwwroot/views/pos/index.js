@@ -17,6 +17,11 @@ toastr.options = {
     "hideMethod": "fadeOut"
 };
 
+function ToggleSliderbar() {
+    console.log(21, 'pos slider')
+    $("#pos").toggleClass("pos-mobile-sidebar-toggled")
+}
+
 var CurrentOrderId = "#CurrentOrderId";
 var VenueId = "#VenueId";
 var EmployeeId = "#EmployeeId"; //Waiter
@@ -253,55 +258,6 @@ function setActiveTab(element) {
     // add active class to the clicked link
     element.classList.add('active');
 }
-function PrintInvoice(orderId) {
-    if (orderId == 0 || !orderId) {
-        toastr.error('No order selected to print invoice.', 'Error');
-        return;
-    }
-    //window.open('/Pos/PrintInvoice?orderId=' + orderId, '_blank');
-    var iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = '/Pos/PrintInvoice?orderId=' + orderId;
-    document.body.appendChild(iframe);
-
-    iframe.onload = function () {
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
-    };
-}
-function PrintKOT(orderId) {
-    // Get Current order ID from UI
-    let current = $(CurrentOrderId); // ensure CurrentOrderId = "#OrderId" or similar
-
-    // If orderId not passed, use current value
-    if (!orderId || orderId == 0) {
-        if (current.length == 0 || !current.val() || current.val() == "0") {
-            toastr.error('No order selected to print KOT.', 'Error');
-            return;
-        }
-        orderId = current.val();
-    }
-
-    // Create hidden iframe
-    var iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = '/Pos/PrintKOT?orderId=' + orderId;
-    document.body.appendChild(iframe);
-
-    iframe.onload = function () {
-        try {
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
-        } catch (e) {
-            console.error("Print error:", e);
-        }
-
-        // Remove iframe after print
-       // setTimeout(() => iframe.remove(), 2000);
-    };
-}
-
-
 
 
 async function IncQuantity(itemId, value) {
@@ -350,4 +306,60 @@ function RemoveToCart(itemId) {
             console.error(error);
         }
     });
+}
+
+
+async function nativePrintPDF(url) {
+    try {
+        // Fetch PDF binary
+        const response = await fetch(url);
+        const blob = await response.blob();
+
+        if (blob.type !== "application/pdf") {
+            console.error("Not a PDF");
+            return;
+        }
+
+        // Create PDF URL
+        const pdfURL = URL.createObjectURL(blob);
+
+        // Open PDF in new window for printing
+        const printWindow = window.open(pdfURL, "_blank");
+
+        if (!printWindow) {
+            alert("Popup blocked! Please allow popups for printing.");
+            return;
+        }
+
+        // Auto-print when loaded
+        printWindow.onload = function () {
+            printWindow.focus();
+            printWindow.print();
+        };
+
+    } catch (err) {
+        console.error("PDF Print Error:", err);
+    }
+}
+
+function PrintInvoice(orderId) {
+    if (!orderId || orderId == 0) {
+        toastr.error('No order selected to print invoice.', 'Error');
+        return;
+    }
+
+    nativePrintPDF('/Pos/PrintInvoice?orderId=' + orderId);
+}
+function PrintKOT(orderId) {
+    let current = $(CurrentOrderId);
+
+    if (!orderId || orderId == 0) {
+        if (!current.val() || current.val() == "0") {
+            toastr.error('No order selected to print KOT.', 'Error');
+            return;
+        }
+        orderId = current.val();
+    }
+
+    nativePrintPDF('/Pos/PrintKOT?orderId=' + orderId);
 }
