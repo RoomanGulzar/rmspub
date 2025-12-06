@@ -18,7 +18,7 @@ async function addToCart(itemName, itemPrice, count, itemId) {
             $('#cart').html(response);
             if (orderId == 0) {
                 var orderId = $("#orderId").val();
-                await UpdateCartOrderFields(orderId);
+                //await UpdateCartOrderFields(orderId);
             }
             OrderTotalBill()
 
@@ -191,43 +191,23 @@ function LoadVenuOrders(venueId) {
     });
 }
 
-// load orders by order no
-//function LoadOrderByOrderNo() {
-//    debugger;
-//    var ordno = $("#ordno").val();
-//    $.ajax({
-//        url: '/OrderManagement/PosPortal/EmployeeOrder',
-//        type: 'GET',
-//        dataType: 'html',
-//        data: { orderId: 0, venueId: 0, ordno: ordno },
-//        success: function (response) {
-//            $('#cart').html(response);
-//            OrderTotalBill()
-//        },
-//        error: function (xhr, status, error) {
-//            console.error(error);
-//        }
-//    });
-//}
-
-//// load orders on venue base
-//function LoadOrderNo() {
-//    debugger;
-//    var staffId = $("#staffId").val();
-//    $.ajax({
-//        url: '/OrderManagement/ManageOrder/LoadOrderNos',
-//        data: { employeeId: staffId },
-//        type: 'GET',
-//        dataType: 'html',
-//        success: function (response) {
-//            $('#orderNos').html(response);
-//            LoadOrder();
-//        },
-//        error: function (xhr, status, error) {
-//            console.error(error);
-//        }
-//    });
-//}
+function LoadOrderNo() {
+    debugger;
+    var staffId = $("#staffId").val();
+    $.ajax({
+        url: '/OrderManagement/ManageOrder/LoadOrderNos',
+        data: { employeeId: staffId },
+        type: 'GET',
+        dataType: 'html',
+        success: function (response) {
+            $('#orderNos').html(response);
+            //LoadOrder();
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
 // change discount
 function ChangeDiscount(previousTotal) {
     previousTotal = parseFloat(previousTotal);
@@ -256,7 +236,7 @@ document.addEventListener("keydown", function (event) {
 //============================================FROM LAYOUT==========================================================//
 
 $(document).ready(function () {
-    window.IsCustomer = $("#hdn_IsCustomer").val().toLowerCase() === "1" ? true : false;
+    window.IsCustomer = $("#hdn_IsCustomer").val()?.toLowerCase() === "1" ? true : false;
     if (window.IsCustomer === true) {
         $("#CheckoutOrderBtn").hide()
     } else {
@@ -498,7 +478,7 @@ function GetKot() {
         success: async function (response) {
             $('#kotdetails').html(response);
             PrintReceipt('kotdetails');
-            await UpdateCartOrderFields();
+            //await UpdateCartOrderFields();
 
         },
         error: function (xhr, status, error) {
@@ -557,12 +537,12 @@ function CheckoutOrder() {
             $('#ordno').val('');
             LoadOrder();
 
-            UpdateCartOrderFields();
+            //UpdateCartOrderFields();
 
         },
         error: function (xhr, status, error) {
             console.error(error);
-            UpdateCartOrderFields();
+            //UpdateCartOrderFields();
         }
     });
 }
@@ -577,7 +557,7 @@ function Reload() {
             $('#cart').html(response);
             $('#staffId').val(0);
             $('#ordno').val("");
-            UpdateCartOrderFields();
+            //UpdateCartOrderFields();
         },
         error: function (xhr, status, error) {
             console.error(error);
