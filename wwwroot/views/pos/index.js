@@ -330,12 +330,16 @@ async function nativePrintPDF(url) {
             alert("Popup blocked! Please allow popups for printing.");
             return;
         }
+        try {
 
-        // Auto-print when loaded
-        printWindow.onload = function () {
+            // Auto-print when loaded
             printWindow.focus();
             printWindow.print();
-        };
+        } catch (e) {
+
+        }
+        //printWindow.onload = function () {
+        //};
 
     } catch (err) {
         console.error("PDF Print Error:", err);
