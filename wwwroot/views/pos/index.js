@@ -229,7 +229,7 @@ async function Search(category, _this) {
     //var name = $("#SearchName").val();
 
     await $.ajax({
-        url: '/OrderManagement/PosPortal/Search',
+        url: '/POS/Search',
         type: 'GET',
         dataType: 'html',
         data: {
