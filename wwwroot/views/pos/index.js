@@ -262,12 +262,12 @@ function setActiveTab(element) {
 
 async function IncQuantity(itemId, value) {
     var quantityControl = "#quantity_" + itemId;
-    var count = parseInt($(quantityControl).val() || 0) + parseInt(value);
+    var count = parseFloat($(quantityControl).val() || 0) + parseFloat(value);
     ChangeQuantity(itemId, count)
 }
 async function DecQuantity(itemId, value) {
     var quantityControl = "#quantity_" + itemId;
-    var count = parseInt($(quantityControl).val() || 0) - parseInt(value);
+    var count = parseFloat($(quantityControl).val() || 0) - parseFloat(value);
     ChangeQuantity(itemId, count)
 }
 async function ChangeQuantity(itemId, value) {
