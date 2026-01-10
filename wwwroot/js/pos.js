@@ -291,6 +291,7 @@ function Refresh() {
         dataType: 'html',
         success: function (response) {
             //toastr.success('Operation successful!', 'Success');
+            window.location.reload();
         },
         error: function (xhr, status, error) {
             console.error(error);

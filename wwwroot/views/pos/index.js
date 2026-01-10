@@ -34,7 +34,7 @@ async function addToCart(count, itemId) {
 }
 
 async function handleAddToCart(count, itemId) {
-
+    debugger;
     var orderId = $(CurrentOrderId).val();
     var venueId = $("#Venue").val();
     var staffId = $("#staffId").val();
@@ -110,15 +110,21 @@ async function ResetPosCart() {
 async function AssignPosCart() {
     var AssignEmployeeId = $("#AssignEmployeeId").val();
     var AssginVenueId = $("#AssginVenueId").val();
-    if ((!AssignEmployeeId && !AssginVenueId) || (AssignEmployeeId == "" && AssginVenueId == "")) {
-        return;
-    }
+    //if ((!AssignEmployeeId && !AssginVenueId) || (AssignEmployeeId == "" && AssginVenueId == "")) {
+    //    return;
+    //}
 
-
+    var orderId = $(CurrentOrderId).val();
+    //if (AssignEmployeeId) {
+    //    ApplyEmployeeFilter();
+    //}
+    //if (!orderId) {
+    //    return;
+    //}
     await $.ajax({
         url: '/Pos/AssignPosCart',
         data: {
-            OrderId: $(CurrentOrderId).val(),
+            OrderId: orderId,
             //OrderNo: $(CurrentOrderId).val(),
             EmployeeId: $("#AssignEmployeeId").val(),
             VenueId: $("#AssginVenueId").val(),
@@ -221,12 +227,25 @@ async function ChangeDiscount(previousTotal) {
     $("#totaldiscount").val(discount);
 }
 
+let timeOut = null
+
 
 async function Search(category, _this) {
+    if (timeOut != null) {
+        clearTimeout(timeOut);
+    }
+    timeOut = setTimeout(function () {
+        SearchDebounce(category, _this)
+    }, 500)
+}
+async function SearchDebounce(category, _this) {
+
     if (!category) {
         category = $("#Category").val();
+    } else {
+        $("#Category").val(category)
     }
-    //var name = $("#SearchName").val();
+    var name = $("#SearchName").val();
 
     await $.ajax({
         url: '/POS/Search',
@@ -234,13 +253,16 @@ async function Search(category, _this) {
         dataType: 'html',
         data: {
             FilterValue: category,
-            //Search: name,
+            Search: name,
             IsEnabled: true
         },
         success: function (response) {
             $('#posItems').html('');
             $('#posItems').html(response);
-            setActiveTab(_this);
+            if (_this) {
+                setActiveTab(_this);
+            }
+
         },
         error: function (xhr, status, error) {
             console.error(error);
@@ -345,14 +367,57 @@ async function nativePrintPDF(url) {
         console.error("PDF Print Error:", err);
     }
 }
+async function nativePrintHTML(url) {
+    try {
+        // Fetch HTML response
+        const response = await fetch(url);
+        const html = await response.text();
+
+        if (!html || html.trim().length === 0) {
+            console.error("Empty HTML response");
+            return;
+        }
+
+        // Open a new window
+        const printWindow = window.open("", "_blank");
+
+        if (!printWindow) {
+            alert("Popup blocked! Please allow popups for printing.");
+            return;
+        }
+
+        // Write HTML to new window
+        printWindow.document.open();
+        printWindow.document.write(html);
+        printWindow.document.close();
+
+        //// Wait for content to load, then print
+        //printWindow.onload = function () {
+        //    printWindow.focus();
+        //    printWindow.print();
+        //    // Optional: close after print
+        //     printWindow.close();
+        //};
+        setTimeout(function () {
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+        }, 100);
+    } catch (err) {
+        console.error("HTML Print Error:", err);
+    }
+}
 
 function PrintInvoice(orderId) {
+
+    ///the below code is responible for pinting itext pdf invoices
     if (!orderId || orderId == 0) {
         toastr.error('No order selected to print invoice.', 'Error');
         return;
     }
-
-    nativePrintPDF('/Pos/PrintInvoice?orderId=' + orderId);
+    nativePrintHTML(`/Pos/PrintInvoice?orderId=${orderId}&isHtml=true`)
+    return;
+    nativePrintPDF(`/Pos/PrintInvoice?orderId=${orderId}`);
 }
 function PrintKOT(orderId) {
     let current = $(CurrentOrderId);
@@ -365,5 +430,87 @@ function PrintKOT(orderId) {
         orderId = current.val();
     }
 
-    nativePrintPDF('/Pos/PrintKOT?orderId=' + orderId);
+    nativePrintHTML(`/Pos/PrintKOT?orderId=${orderId}&isHtml=true`);
+    return;
+    nativePrintPDF(`/Pos/PrintKOT?orderId=${orderId}`);
+}
+
+
+function bindSelect(selectId, data, defaultText, defaultValue = 'Select', selectedValue = null) {
+    const $select = $(selectId);
+
+    // 1️⃣ Clear existing options
+    $select.empty();
+
+    // 2️⃣ Add default option
+    $select.append(
+        $('<option>', {
+            value: '--',
+            text: defaultText
+        })
+    );
+
+    // 3️⃣ Add options from list
+    $.each(data, function (i, item) {
+        $select.append(
+            $('<option>', {
+                value: item.value,
+                text: item.text,
+                selected: item.selected === true || (selectedValue != null && item.value == selectedValue)
+            })
+        );
+    });
+}
+
+var chars = new Array();
+var pressed = false;
+$(document).on("keydown", function (e) {
+    if (e.which >= 48 && e.which <= 57) {
+        chars.push(e.key);
+    }
+
+    if (pressed === false) {
+
+        setTimeout(function () {
+
+            if (chars.length >= 8) {
+                var $focused = $(':focus');
+                if (!$focused.is(':button')) {
+                    $focused.val("");
+                }
+
+                var barcode = chars.join("");
+
+                // assign value to some input (or do whatever you want)
+                //addToCart(barcode);
+                // alert(barcode);
+                barcode = "";
+            }
+            chars = [];
+            pressed = false;
+        }, 500);
+    }
+    pressed = true;
+});
+function simulateScan(barcode) {
+    let index = 0;
+
+    function triggerNextChar() {
+        if (index >= barcode.length) return;
+
+        const char = barcode.charAt(index);
+        index++;
+        ///console.log('char at',index,'is',char);
+        const e = new KeyboardEvent("keydown", {
+            key: char,
+            bubbles: true,
+            which: String.fromCharCode(char)
+        });
+
+        document.dispatchEvent(e);
+
+        setTimeout(triggerNextChar, 10); // scanner speed
+    }
+
+    triggerNextChar();
 }

@@ -1,3 +1,184 @@
+html {
+    position: relative;
+    min-height: 100%;
+    font-size: 16px; /* Base size for mobile */
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+a.nav-link i{
+    margin-right:5px!important;
+}
+@media (min-width: 768px) {
+    html {
+        font-size: 12px;/* Scales up for Desktop */
+    }
+}
+
+body, span, .card, .card-title, p{
+    font-size: 10px !important;
+}
+
+.sidebar {
+    background-color: #003366;
+    height: 100vh;
+    color: #FFFFFF;
+    position: fixed;
+    width: 225px;
+    top: 0;
+    left: -225px; /* Hidden by default on mobile */
+    transition: all 0.5s ease;
+    overflow-y: auto;
+    scrollbar-width: none;
+    z-index: 1050;
+}
+
+/* Show sidebar on larger screens */
+@media (min-width: 768px) {
+    .sidebar {
+        left: 0;
+    }
+}
+
+/* Links and Icons */
+.sidebar a {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.5s ease;
+    font-size: 1.1rem;
+}
+
+    .sidebar a:hover, .sidebar .active {
+        background-color: #0055AA;
+        width: 100%;
+    }
+
+.sidebar i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+
+
+.header {
+    background-color: #ffc107 !important;
+    color: #000000;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 20px;
+    position: fixed;
+    width: 100%; /* Full width on mobile */
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    transition: all 0.5s ease;
+}
+
+.content {
+    margin-left: 0; /* No margin on mobile */
+    padding-top: 75px;
+    padding-left: 15px;
+    padding-right: 15px;
+    transition: all 0.5s ease;
+    background: #e3e1e1;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Desktop Adjustment */
+@media (min-width: 768px) {
+
+
+    .content {
+        margin-left: 225px;
+    }
+}
+
+
+
+
+.table-responsive .table {
+    min-width: 600px; /* Ensures table doesn't squish too much */
+    width: 100% !important;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap; /* Allows fields to stack on mobile */
+}
+
+    .form-row .form-group {
+        flex: 1;
+        min-width: 250px; /* Stacks when container is narrow */
+        margin-right: 10px;
+    }
+
+.form-container {
+    margin: auto;
+    background: #fff;
+    padding: 20px; /* Reduced padding for mobile */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+    .form-container {
+        padding: 30px;
+    }
+}
+
+
+
+
+.btn:focus, .form-control:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.btn-save {
+    background-color: #28A745;
+    color: #fff;
+}
+
+.btn-cancel {
+    background-color: #6C757D;
+    color: #fff;
+}
+
+.btn-reset {
+    background-color: #FD7E14;
+    color: #fff;
+}
+
+.card {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.3s;
+    margin-bottom: 20px;
+}
+
+.smart-footer {
+    height: auto; /* Auto height for wrapping text on mobile */
+    min-height: 20px;
+    background-color: #13448c !important;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+    /*padding: 5px 10px;*/
+}
+
+
+
+
 body, span, .card, .card-title {
     font-size: 1.1rem !important;
 }
@@ -26,9 +207,7 @@ html {
     min-height: 100%;
 }
 
-body {
-    background-color: #F5F5F5;
-}
+
 
 .sidebar {
     background-color: #003366;
@@ -45,7 +224,7 @@ body {
 }
 
     .sidebar.minimized {
-        /*width: 70px;*/
+        width: 70px;
     }
 
     .sidebar h4,
@@ -87,7 +266,7 @@ body {
         .sidebar a:hover,
         .sidebar .active {
             background-color: #0055AA;
-            width:100%;
+            width: 100%;
         }
 
     .sidebar i {
@@ -110,7 +289,7 @@ body {
     z-index: 1000;
     top: 0;
     left: 225px;
-    direction: ltr;
+    direction: ltr !important;
     transition: left 0.5s ease;
 }
 
@@ -122,11 +301,9 @@ body {
     margin-left: 225px;
     padding-top: 75px;
     transition: margin-left 0.5s ease;
-    padding-left: 2px;
+    padding-left: 0px;
     scrollbar-width: none;
     background: #e3e1e1;
-    /*    z-index: 100;*/ /*Causing modal to not function.*/
-    position: relative;
     height: 100vh;
     overflow: auto;
 }
@@ -142,20 +319,7 @@ select {
     border-color: #CED4DA;
 }
 
-.btn-save {
-    background-color: #28A745;
-    color: #FFFFFF;
-}
 
-.btn-cancel {
-    background-color: #6C757D;
-    color: #FFFFFF;
-}
-
-.btn-reset {
-    background-color: #FD7E14;
-    color: #FFFFFF;
-}
 
 .breadcrumb {
     background-color: transparent;
@@ -169,16 +333,9 @@ select {
     margin-bottom: 20px;
 }
 
-.card {
-   /* background-color: #FFFFFF;
-    border: 1px solid #E0E0E0;*/
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    transition: transform 0.3s;
-}
 
 
-    
+
 
 .table thead {
     background-color: #007bff;
@@ -191,86 +348,106 @@ select {
     background-color: #fff;
 }
 
-.hidden {
-    display: none;
+
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-/* Modern Form Styling */
-.form-container {
-    margin: auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
 
-    .form-container h2 {
-        text-align: center;
-        margin-bottom: 30px;
-    }
 
-.form-group {
-    margin-bottom: 20px;
-}
-
-label {
+/*label {
     font-weight: bold;
     font-size: smaller;
 }
+*/
 
-.form-row {
-    display: flex;
-    justify-content: space-between;
-}
-
-    .form-row .form-group {
-        flex: 1;
-        margin-right: 10px;
-    }
 
 .btn-primary {
-    width: 100%;
+    /*    width: 100%;*/
     padding: 10px;
     font-size: 18px;
 }
 
-.bg-topbar {
-    /* background-color: #FF5733 !important; */
-    /*background-color: #007bff !important;*/
-    background-color: #13448c!important;
+/*.bg-topbar {
+    background-color: #FF5733 !important;
+    background-color: #007bff !important;
+    background-color: #13448c !important;
     border-radius: 5px;
-}
+}*/
 
 #products-table {
-    /* width: 200px; */
+    width: 200px;
     height: 400px !important;
     overflow: scroll !important;
 }
 
 .pglink {
-   color: #13448c !important;
+    color: #13448c !important;
 }
 
-.smart-footer {
-    height: 35px;
-    background-color: #13448c !important;
-    color: white !important;
-    display: flex;
-    align-items: center;
-    /*justify-content: center;*/
-    font-size: 12px;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    z-index: 1000;
-    text-align: center;
-    padding-top:10px!important;
-    margin-left:-2px!important;
-}
 .lblMandatory {
     color: red;
     padding-top: 2px !important;
     position: absolute;
     padding-left: 2px;
 }
+
+
+/* --- Header Section --- */
+.header {
+    background-color: #ffc107 !important; /* Bootstrap warning yellow */
+    color: #000000;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 15px;
+    position: fixed;
+    top: 0;
+    left: 0; /* Full width on mobile */
+    width: 100%;
+    z-index: 1040; /* Above content, below sidebar if needed */
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Adjust Header when Sidebar is present on Desktop */
+@media (min-width: 1024px) {
+    .header {
+        left: 225px; /* Matches Sidebar width */
+        width: calc(100% - 225px);
+    }
+
+        /* If the sidebar is minimized on desktop */
+        .header.minimized {
+            left: 70px;
+            width: calc(100% - 70px);
+        }
+}
+
+/* --- Breadcrumb & Layout inside Header --- */
+.header .breadcrumb {
+    background-color: transparent;
+    margin-bottom: 0; /* Important: removes Bootstrap default margin */
+    padding: 0;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+/* Hide breadcrumb text on very small phones to save space */
+@media (max-width: 480px) {
+    .breadcrumb-item:not(.active) {
+        display: none;
+    }
+}
+
+/* --- Topbar Button --- */
+/*.bg-topbar {
+    background-color: #13448c !important;
+    border: none;
+    padding: 4px 12px;
+    font-size: 0.85rem;
+}*/
