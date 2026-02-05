@@ -618,19 +618,6 @@ $('#sidebar a .nested-rg').on('click', function () {
 ////});
 
 
-const sidebar = document.getElementById('sidebar');
-const header = document.getElementById('header');
-const content = document.getElementById('content');
-const toggleSidebar = document.getElementById('toggleSidebar');
-if (toggleSidebar) {
-
-    toggleSidebar.addEventListener('click', () => {
-        sidebar.classList.toggle('minimized');
-        header.classList.toggle('minimized');
-        content.classList.toggle('minimized');
-    });
-
-}
 //============================================FROM LAYOUT==========================================================//
 
 
