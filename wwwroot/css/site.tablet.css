@@ -1,6 +1,7 @@
 ﻿.sidebar {
     transition: all 0.5s ease;
 }
+
 @media (max-width: 768px) {
     .header, .header.minimized {
         left: 0px;
@@ -9,22 +10,19 @@
     .sidebar {
         position: fixed;
         z-index: 99 !important;
-        width: 0px;
+        width: 220px !important;
+        left: 0px !important;
     }
 
         .sidebar.minimized {
-            width: 225px;
+            width: 0px !important;
         }
-        .sidebar a span,
-        .sidebar h4 span {
-            display:none;
-            transform:none;
-        }
-        .sidebar.minimized a span,
-        .sidebar.minimized h4 span {
-            opacity: 1 !important;
-            display:contents;
-        }
+
+            .sidebar.minimized a span,
+            .sidebar.minimized h4 span {
+                opacity: 1 !important;
+                display: contents;
+            }
 
     .content, .content.minimized {
         margin-left: 0px !important;
@@ -37,4 +35,9 @@
         .content .header {
             direction: rtl;
         }
+
+    .sidebar.minimized {
+        width: 0px !important; /* Slightly narrower sidebar to avoid covering whole screen */
+        left: 0px;
+    }
 }

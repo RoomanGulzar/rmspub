@@ -31,9 +31,9 @@ body, span, .card, .card-title, p {
     height: 100vh;
     color: var(--text-sidebar);
     position: fixed;
-    width: 225px;
+    width: 250px;
     top: 0;
-    left: -225px; /* Hidden by default on mobile */
+    left: -250px; /* Hidden by default on mobile */
     transition: all 0.5s ease;
     overflow-y: auto;
     scrollbar-width: none;
@@ -48,7 +48,7 @@ body, span, .card, .card-title, p {
 }
 
 .sidebar.minimized {
-    width: 70px;
+    width: 90px;
 }
 
 .sidebar h4,
@@ -66,7 +66,9 @@ body, span, .card, .card-title, p {
     color: white;
     transform: rotate(352deg);
 }
-
+.sidebar.minimized nestedrg span{
+    display:none;
+}
 .sidebar h4 i {
     transition: all 0.5s ease;
 }
@@ -136,13 +138,13 @@ body, span, .card, .card-title, p {
 
 @media (min-width: 1024px) {
     .header {
-        left: 225px;
-        width: calc(100% - 225px);
+        left: 250px;
+        width: calc(100% - 250px);
     }
 
         .header.minimized {
-            left: 70px;
-            width: calc(100% - 70px);
+            left: 90px;
+            width: calc(100% - 90px);
         }
 }
 
@@ -163,12 +165,12 @@ body, span, .card, .card-title, p {
 
 @media (min-width: 768px) {
     .content {
-        margin-left: 225px;
+        margin-left: 250px;
         padding-left: 0px;
     }
 
         .content.minimized {
-            margin-left: 70px;
+            margin-left: 90px;
         }
 }
 
@@ -348,15 +350,15 @@ input, select {
         margin-right: 0;
     }
 
-    .sidebar {
+    .sidebar.minimized {
         width: 200px; /* Slightly narrower sidebar to avoid covering whole screen */
         left: 0px;
     }
 
-        .sidebar a {
-            padding: 10px 15px;
-            font-size: 1rem;
-        }
+    .sidebar a {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
 
     .btn-primary {
         font-size: 16px; /* Scaled down from 18px */
@@ -372,57 +374,6 @@ input, select {
     }
 }
 /**********************************************320PX OR LESS*****************************************************/
-
-
-
-/**********************************************321PX AND 768PX*****************************************************/
-/* --- Standard Mobile Styles (Greater than 320px and less than 768px) --- */
-@media (min-width: 321px) and (max-width: 767px) {
-    html {
-        font-size: 16px; /* Your original base size for mobile */
-    }
-
-    /* Content spacing for standard mobile */
-    .content {
-        padding-left: 15px;
-        padding-right: 15px;
-        margin-left: 0; /* Sidebar is still hidden */
-    }
-
-    /* Header remains full width */
-    .header {
-        left: 0;
-        width: 100%;
-        padding: 0 20px;
-    }
-
-    /* Sidebar stays off-screen until toggled */
-    .sidebar {
-        left: -225px;
-        width: 225px;
-    }
-
-    /* Form handling: ensure fields stack if they hit 250px */
-    .form-row .form-group {
-        flex: 1 1 100%; /* Encourages stacking on medium-small phones */
-        margin-right: 0;
-        margin-bottom: 15px;
-    }
-
-    /* Table optimization: allow horizontal scrolling without breaking layout */
-    .table-responsive .table {
-        min-width: 600px;
-    }
-
-    /* Breadcrumb: show only the active item or last 2 to save space */
-    .breadcrumb-item:not(.active) {
-        max-width: 100px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-}
-/**********************************************321PX AND 768PX*****************************************************/
 
 
 /**********************************************DARK AND LIGHT MODE*****************************************************/

@@ -1,7 +1,7 @@
 ﻿//============================================FROM POS==========================================================//
 // Function to add an item to the cart
 async function addToCart(itemName, itemPrice, count, itemId) {
-    debugger;
+    
     var orderId = $("#orderId").val();
     var venueId = $("#Venue").val();
     var staffId = $("#staffId").val();
@@ -192,7 +192,7 @@ function LoadVenuOrders(venueId) {
 }
 
 function LoadOrderNo() {
-    debugger;
+    
     var staffId = $("#staffId").val();
     $.ajax({
         url: '/OrderManagement/ManageOrder/LoadOrderNos',
@@ -468,7 +468,7 @@ function PrintOrder(orderId) {
 
 // get kot
 function GetKot() {
-    debugger;
+    
     var orderId = $("#orderId").val();
     $.ajax({
         url: '/OrderManagement/ManageOrder/OrderKot',
@@ -489,7 +489,7 @@ function GetKot() {
 }
 
 function KotPrinted(flag) {
-    debugger;
+    
     var orderId = $("#orderId").val();
     $.ajax({
         url: '/OrderManagement/ManageOrder/KotGenerated',
@@ -511,7 +511,7 @@ function KotPrinted(flag) {
 
 // get kot
 function CheckoutOrder() {
-    debugger;
+    
     var orderId = $("#orderId").val();
     var venueId = $("#hdn_venueId").val();
     var totaldiscount = $("#totaldiscount").val();
@@ -573,12 +573,12 @@ function Reload() {
 
 // Adding class 'collapsed' to all <a> tags in #sidebar
 $(document).ready(function () {
-    debugger;
+    
 
     var currentHref = window.location.href;
     //$('#sidebar a:not(.collapsed)').addClass('collapsed');
     $('#sidebar a').each(function () {
-        debugger;
+        
         $(this).removeClass('active');
         //window.location.href
         var href = window.location.href, aHref = $(this).prop('href');

@@ -34,7 +34,7 @@ async function addToCart(count, itemId) {
 }
 
 async function handleAddToCart(count, itemId) {
-    debugger;
+    
     var orderId = $(CurrentOrderId).val();
     var venueId = $("#Venue").val();
     var staffId = $("#staffId").val();
@@ -154,7 +154,7 @@ async function ResetAssignPosCart() {
 
 // get kot
 async function CheckoutOrder() {
-    debugger;
+    
     var orderId = $(CurrentOrderId).val();
     window.LastOrderId = orderId;
     var venueId = $(VenueId).val();
@@ -198,10 +198,10 @@ async function PrintReceipt(containerId, flag) {
 }
 
 async function PosKotPrinted(flag) {
-    debugger;
+    
     var orderId = $(CurrentOrderId).val();
     $.ajax({
-        url: '/OrderManagement/ManageOrder/KotGenerated',
+        url: '/POS/KotGenerated',
         type: 'GET',
         dataType: 'html',
         async: false,
