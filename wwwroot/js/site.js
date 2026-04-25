@@ -94,3 +94,28 @@ if (toggleSidebar) {
         }
     });
 }
+
+
+
+
+document.addEventListener('click', (event) => {
+    const isMobile = window.innerWidth < 992;
+
+    // Check if we are in mobile/tablet view
+    if (isMobile) {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const isClickOnToggle = toggleSidebar.contains(event.target);
+        const isSidebarOpen = !sidebar.classList.contains('minimized');
+
+        // If the click is outside the sidebar AND not on the toggle button
+        // AND the sidebar is currently visible/open, then hide it
+        if (!isClickInsideSidebar && !isClickOnToggle && isSidebarOpen) {
+            sidebar.classList.add('minimized');
+            header.classList.add('minimized');
+            content.classList.add('minimized');
+
+            // Sync with your persistence logic
+            localStorage.setItem('sidebarMinimized', 'true');
+        }
+    }
+});
